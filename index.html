@@ -1,0 +1,1959 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>《金瓶梅》AI原生電影 - 數位文化傳承</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&family=Orbitron:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #9b59b6;
+            --secondary: #3498db;
+            --accent: #00ff9d;
+        }
+        
+        body {
+            font-family: 'Noto Serif TC', serif;
+            background-color: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(155, 89, 182, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(52, 152, 219, 0.1) 0%, transparent 20%);
+        }
+        
+        .logo-font {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 800;
+            font-size: 2.5rem;
+            letter-spacing: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+            display: inline-block;
+            text-shadow: 0 0 15px rgba(0, 255, 157, 0.3);
+            animation: logoGlow 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes logoGlow {
+            0% { text-shadow: 0 0 10px rgba(0, 255, 157, 0.3); }
+            100% { text-shadow: 0 0 25px rgba(0, 255, 157, 0.6), 0 0 35px rgba(155, 89, 182, 0.4); }
+        }
+        
+        .logo-sub {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 0.7rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-top: -10px;
+            text-align: center;
+            opacity: 0.8;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, var(--primary), var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+        
+        .accent-bg {
+            background: rgba(0, 255, 157, 0.1);
+            border: 1px solid rgba(0, 255, 157, 0.2);
+        }
+        
+        .card {
+            background-color: rgba(26, 32, 44, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 255, 157, 0.2);
+            border-color: rgba(0, 255, 157, 0.3);
+        }
+        
+        .navbar {
+            background-color: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 255, 157, 0.1);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            transition: all 0.3s ease;
+            border: none;
+            font-weight: 600;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(155, 89, 182, 0.4);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .btn-secondary:hover {
+            background-color: rgba(0, 255, 157, 0.1);
+            transform: translateY(-3px);
+        }
+        
+        .hero {
+            position: relative;
+            overflow: hidden;
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+        }
+        
+        .hero:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 100%);
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1623039405147-547794f92e9e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.7;
+            animation: bgPan 30s infinite linear;
+        }
+        
+        @keyframes bgPan {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+        
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 1s ease-in-out forwards;
+            opacity: 0;
+        }
+        
+        .animate-slide-up {
+            animation: slideUp 0.8s ease-in-out forwards;
+            opacity: 0;
+        }
+        
+        .animate-slide-right {
+            animation: slideRight 0.8s ease-in-out forwards;
+            opacity: 0;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes slideRight {
+            from { transform: translateX(-50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .progress-bar {
+            background: linear-gradient(to right, var(--primary), var(--accent), var(--secondary));
+            border-radius: 9999px;
+            height: 8px;
+        }
+        
+        .cyber-border {
+            position: relative;
+        }
+        
+        .cyber-border:after {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(45deg, transparent 30%, var(--accent) 45%, var(--secondary) 55%, transparent 70%);
+            background-size: 200% 200%;
+            animation: borderGlow 5s linear infinite;
+            z-index: -1;
+            border-radius: 20px;
+        }
+        
+        @keyframes borderGlow {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+        
+        .ai-element {
+            position: absolute;
+            background-color: rgba(155, 89, 182, 0.1);
+            border: 1px solid rgba(155, 89, 182, 0.3);
+            backdrop-filter: blur(5px);
+            padding: 10px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 12px;
+            color: var(--accent);
+            z-index: 3;
+            pointer-events: none;
+            box-shadow: 0 0 15px rgba(0, 255, 157, 0.1);
+        }
+        
+        .data-stream {
+            position: absolute;
+            height: 100px;
+            width: 2px;
+            background: linear-gradient(to bottom, transparent, var(--accent), var(--secondary), transparent);
+            z-index: 0;
+            animation: dataStream 2s linear infinite;
+            opacity: 0.3;
+        }
+        
+        @keyframes dataStream {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100vh); }
+        }
+        
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 100vh;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 20px;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+        
+        .mobile-menu-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--accent);
+        }
+        
+        .project-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .card:hover .project-img {
+            transform: scale(1.05);
+        }
+        
+        .ai-tech-img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .copyright-card-img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        
+        .testimonial-img {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent);
+        }
+        
+        .token-card {
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .token-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 255, 157, 0.25);
+        }
+        
+        .hkaifm-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 2px;
+        }
+        
+        .section-title.center:after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .ai-chip {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 255, 157, 0.3);
+            border-radius: 20px;
+            padding: 5px 15px;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin: 0 5px 5px 0;
+        }
+        
+        .stats-card {
+            text-align: center;
+            padding: 25px;
+            border-radius: 16px;
+            background: rgba(26, 32, 44, 0.5);
+            border: 1px solid rgba(0, 255, 157, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .stats-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            background: rgba(26, 32, 44, 0.7);
+        }
+        
+        .stats-card i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+        
+        .stats-card .number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, var(--primary), var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        /* NFT Gallery specific styles */
+        .nft-card-hover {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            padding: 1rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .nft-card:hover .nft-card-hover {
+            transform: translateY(0);
+        }
+        
+        .filter-pill {
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 8px 16px;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+        
+        .filter-pill.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+        
+        .filter-pill:hover:not(.active) {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .token-badge {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 2px 8px;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            overflow-y: auto;
+        }
+        
+        .modal-content {
+            background-color: #111;
+            margin: 5% auto;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+            z-index: 10;
+        }
+        
+        .nft-detail-container {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        @media (min-width: 768px) {
+            .nft-detail-container {
+                flex-direction: row;
+            }
+        }
+        
+        .nft-detail-image {
+            flex: 1;
+            min-height: 400px;
+            background-color: #222;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .nft-detail-info {
+            flex: 1;
+            padding: 30px;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.1);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 4px;
+        }
+        
+        /* 修复登录按钮样式 */
+        .login-container {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .login-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            min-width: 280px;
+            background: rgba(26, 32, 44, 0.95);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: 1px solid rgba(0, 255, 157, 0.2);
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            margin-top: 10px;
+        }
+        
+        .login-container:hover .login-dropdown {
+            display: block;
+        }
+        
+        .login-option {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-bottom: 8px;
+        }
+        
+        .login-option:hover {
+            background: rgba(0, 255, 157, 0.1);
+        }
+        
+        .login-option i {
+            font-size: 20px;
+            width: 30px;
+            text-align: center;
+            margin-right: 10px;
+        }
+        
+        .login-divider {
+            height: 1px;
+            background: rgba(255,255,255,0.1);
+            margin: 15px 0;
+        }
+        
+        .wallet-option {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(0, 255, 157, 0.3);
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .desktop-nav {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .ai-tech-img {
+                height: 300px;
+            }
+            
+            .logo-font {
+                font-size: 1.8rem;
+            }
+            
+            .hero-bg {
+                animation: none;
+            }
+            
+            .hero {
+                min-height: 50vh;
+            }
+            
+            .section-title:after {
+                width: 40px;
+                bottom: -8px;
+            }
+            
+            .login-dropdown {
+                left: 0;
+                right: auto;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero {
+                min-height: 40vh;
+            }
+            
+            .logo-font {
+                font-size: 1.5rem;
+            }
+            
+            .logo-sub {
+                font-size: 0.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- AI Elements -->
+    <div class="ai-element" style="top: 120px; left: 10%;">
+        NFT_ID: JM-001 <br>
+        狀態: 生成中 <br>
+        // AI生成金瓶梅NFT
+    </div>
+    
+    <div class="ai-element" style="bottom: 150px; right: 15%;">
+        區塊高度: #987654 <br>
+        哈希: 0x71A9B3...F7E <br>
+        // 區塊鏈認證
+    </div>
+    
+    <!-- Data streams -->
+    <div class="data-stream" style="left: 20%; animation-delay: 0s;"></div>
+    <div class="data-stream" style="left: 40%; animation-delay: 0.5s;"></div>
+    <div class="data-stream" style="left: 60%; animation-delay: 1s;"></div>
+    <div class="data-stream" style="left: 80%; animation-delay: 1.5s;"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar fixed w-full z-50 px-4 py-3">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#" class="hkaifm-logo">
+                <div class="logo-font">金瓶梅AI電影</div>
+                <div class="logo-sub">數位文化宇宙</div>
+            </a>
+            <div class="hidden md:flex space-x-8 desktop-nav">
+                <a href="#about" class="hover:text-blue-400 transition">關於項目</a>
+                <a href="#nft" class="hover:text-blue-400 transition">NFT系列</a>
+                <a href="#technology" class="hover:text-blue-400 transition">AI技術</a>
+                <a href="#collections" class="hover:text-blue-400 transition">精選收藏</a>
+                <a href="#community" class="hover:text-blue-400 transition">社群</a>
+            </div>
+            <div class="flex items-center space-x-4">
+                <div class="login-container relative">
+                    <a href="#login" class="btn-primary px-6 py-2 rounded-full text-sm">登入</a>
+                    <div class="login-dropdown">
+                        <h3 class="font-bold text-lg mb-4">登入金瓶梅AI宇宙</h3>
+                        
+                        <div class="login-option" data-login="google">
+                            <i class="fab fa-google text-red-500"></i>
+                            <span>使用Google登入</span>
+                        </div>
+                        
+                        <div class="login-option" data-login="facebook">
+                            <i class="fab fa-facebook text-blue-600"></i>
+                            <span>使用Facebook登入</span>
+                        </div>
+                        
+                        <div class="login-option" data-login="apple">
+                            <i class="fab fa-apple"></i>
+                            <span>使用Apple登入</span>
+                        </div>
+                        
+                        <div class="login-divider"></div>
+                        
+                        <div class="login-option wallet-option" data-login="metamask">
+                            <i class="fas fa-wallet text-yellow-400"></i>
+                            <span>連接MetaMask錢包</span>
+                        </div>
+                        
+                        <div class="login-option wallet-option" data-login="walletconnect">
+                            <i class="fas fa-plug text-blue-300"></i>
+                            <span>連接WalletConnect</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="md:hidden text-white mobile-menu-btn">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <div class="mobile-menu-close">
+            <i class="fas fa-times"></i>
+        </div>
+        
+        <div class="mt-12 flex flex-col space-y-6">
+            <a href="#about" class="text-xl hover:text-blue-400 transition">關於項目</a>
+            <a href="#nft" class="text-xl hover:text-blue-400 transition">NFT系列</a>
+            <a href="#technology" class="text-xl hover:text-blue-400 transition">AI技術</a>
+            <a href="#collections" class="text-xl hover:text-blue-400 transition">精選收藏</a>
+            <a href="#community" class="text-xl hover:text-blue-400 transition">社群</a>
+            
+            <div class="pt-6 border-t border-gray-700">
+                <button class="btn-primary w-full py-3 rounded-lg font-medium text-center mb-4" id="mobile-login-btn">
+                    登入
+                </button>
+                <button class="btn-secondary w-full py-3 rounded-lg font-medium text-center" id="mobile-wallet-btn">
+                    連接錢包
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="container mx-auto px-4 hero-content">
+            <div class="max-w-3xl animate-fade-in">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6">《金瓶梅》AI原生電影宇宙</h1>
+                <p class="text-xl text-gray-300 mb-8">
+                    全球首部AI原生古典文學電影，以區塊鏈技術重現600年明代經典，收藏獨一無二的數位文化資產，體驗東方文學的數位新生。
+                </p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="#nft" class="btn-primary px-8 py-3 rounded-full font-medium text-center">
+                        探索NFT系列
+                    </a>
+                    <a href="#technology" class="btn-secondary px-8 py-3 rounded-full font-medium text-center">
+                        了解AI技術
+                    </a>
+                </div>
+                
+                <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="stats-card">
+                        <i class="fas fa-book"></i>
+                        <div class="number">600年</div>
+                        <div class="text-sm">古典文學</div>
+                    </div>
+                    <div class="stats-card">
+                        <i class="fas fa-film"></i>
+                        <div class="number">100分鐘</div>
+                        <div class="text-sm">AI電影</div>
+                    </div>
+                    <div class="stats-card">
+                        <i class="fas fa-cubes"></i>
+                        <div class="number">141,500</div>
+                        <div class="text-sm">獨特NFT</div>
+                    </div>
+                    <div class="stats-card">
+                        <i class="fas fa-globe-asia"></i>
+                        <div class="number">168+</div>
+                        <div class="text-sm">國家地區</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="py-16" id="about">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center mb-16">
+                <h2 class="text-3xl font-bold mb-6">重塑古典文學鉅著</h2>
+                <p class="text-xl text-gray-300">
+                    《金瓶梅》是中國明代四大奇書之一，被譽為中國文學史上第一部以市民生活為題材的長篇小說。
+                    我們運用最先進的生成式AI與區塊鏈技術，為這部600年歷史的文學經典賦予全新的數位生命。
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="card p-6 animate-slide-up">
+                    <div class="text-blue-400 text-4xl mb-4">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">文化傳承</h3>
+                    <p class="text-gray-400">
+                        讓600年文學經典在數字時代重新煥發生機，通過AI技術跨越語言和文化鴻溝，向世界展示中華文化的深厚底蘊。
+                    </p>
+                </div>
+                
+                <div class="card p-6 animate-slide-up">
+                    <div class="text-blue-400 text-4xl mb-4">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">技術創新</h3>
+                    <p class="text-gray-400">
+                        開創AI電影製作的新範式，為人工智能在藝術創作領域的應用樹立新標杆，推動科技與藝術的深度融合。
+                    </p>
+                </div>
+                
+                <div class="card p-6 animate-slide-up">
+                    <div class="text-blue-400 text-4xl mb-4">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">全球影響</h3>
+                    <p class="text-gray-400">
+                        通過多語言、多文化的全球化策略，促進東西方的文化交流與理解，讓世界感受中華文學的獨特魅力。
+                    </p>
+                </div>
+            </div>
+            
+            <div class="mt-16 bg-gray-900 rounded-2xl p-8">
+                <div class="max-w-4xl mx-auto">
+                    <h3 class="text-2xl font-bold mb-6 text-center">《金瓶梅》的文學價值</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="text-xl font-bold mb-3">文學史地位</h4>
+                            <ul class="space-y-3 text-gray-400">
+                                <li class="flex items-start">
+                                    <i class="fas fa-star text-yellow-400 mt-1 mr-2"></i>
+                                    <span>與《紅樓夢》、《三國演義》、《水滸傳》、《西遊記》並稱中國古典文學五大奇書</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-star text-yellow-400 mt-1 mr-2"></i>
+                                    <span>現實主義巔峰之作：首次以市民生活為題材的長篇小說</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-star text-yellow-400 mt-1 mr-2"></i>
+                                    <span>開創了章回體小說的成熟形式</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold mb-3">全球影響力</h4>
+                            <ul class="space-y-3 text-gray-400">
+                                <li class="flex items-start">
+                                    <i class="fas fa-language text-blue-400 mt-1 mr-2"></i>
+                                    <span>被翻譯成23種語言在全球發行</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-university text-blue-400 mt-1 mr-2"></i>
+                                    <span>哈佛、牛津、東京等頂級大學設有專門研究課程</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-award text-blue-400 mt-1 mr-2"></i>
+                                    <span>2019年被國際比較文學學會評為"世界文學遺產"</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NFT Collections Section -->
+    <section class="py-16 bg-gray-900" id="nft">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-6">NFT收藏系列</h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    收藏獨一無二的《金瓶梅》數位文化資產，每件NFT都是您在AI電影宇宙中的專屬通行證。
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+                <!-- 金蓮NFT -->
+                <div class="card overflow-hidden nft-item" data-id="1">
+                    <div class="bg-gray-800 w-full h-48 flex items-center justify-center">
+                        <div class="text-gray-400 text-center">
+                            <i class="fas fa-crown text-5xl mb-2"></i>
+                            <div>金蓮NFT</div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="token-badge">創始贊助人層級</span>
+                            <span class="text-sm text-gray-400">限量500枚</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">金蓮NFT</h3>
+                        <p class="text-gray-400 mb-4">
+                            動態生成視頻藝術品，融合明代美學與現代數字藝術，DAO核心投票權與電影署名權。
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xl font-bold">¥9,999</span>
+                            <button class="btn-primary px-4 py-2 text-sm view-detail">
+                                查看詳情
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 關鍵信物NFT -->
+                <div class="card overflow-hidden nft-item" data-id="2">
+                    <div class="bg-gray-800 w-full h-48 flex items-center justify-center">
+                        <div class="text-gray-400 text-center">
+                            <i class="fas fa-key text-5xl mb-2"></i>
+                            <div>關鍵信物NFT</div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="token-badge">道具系列</span>
+                            <span class="text-sm text-gray-400">限量40,000枚</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">關鍵信物NFT</h3>
+                        <p class="text-gray-400 mb-4">
+                            命運之簾、王婆的銀線、胡僧的秘藥等經典道具，具備3D互動功能。
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xl font-bold">¥199-999</span>
+                            <button class="btn-primary px-4 py-2 text-sm view-detail">
+                                查看詳情
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 人物星盤NFT -->
+                <div class="card overflow-hidden nft-item" data-id="3">
+                    <div class="bg-gray-800 w-full h-48 flex items-center justify-center">
+                        <div class="text-gray-400 text-center">
+                            <i class="fas fa-user text-5xl mb-2"></i>
+                            <div>人物星盤NFT</div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="token-badge">角色系列</span>
+                            <span class="text-sm text-gray-400">限量48,000枚</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">人物星盤NFT</h3>
+                        <p class="text-gray-400 mb-4">
+                            收藏西門慶、潘金蓮、李瓶兒等經典角色，可進行AI角色對話與角色視角觀影。
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xl font-bold">¥199-999</span>
+                            <button class="btn-primary px-4 py-2 text-sm view-detail">
+                                查看詳情
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 銀遮NFT -->
+                <div class="card overflow-hidden nft-item" data-id="4">
+                    <div class="bg-gray-800 w-full h-48 flex items-center justify-center">
+                        <div class="text-gray-400 text-center">
+                            <i class="fas fa-chess-queen text-5xl mb-2"></i>
+                            <div>銀遮NFT</div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="token-badge">合成系列</span>
+                            <span class="text-sm text-gray-400">限量8,000-12,000枚</span>
+                        </div>
+                    <h3 class="text-xl font-bold mb-3">銀遮NFT</h3>
+                    <p class="text-gray-400 mb-4">
+                        由關鍵信物與人物星盤NFT合成，每個銀遮NFT都是獨一無二的15-30秒AI電影短片。
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xl font-bold">合成獲得</span>
+                        <button class="btn-primary px-4 py-2 text-sm view-detail">
+                            查看詳情
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 觀影秘籍NFT -->
+            <div class="card overflow-hidden nft-item" data-id="5">
+                <div class="bg-gray-800 w-full h-48 flex items-center justify-center">
+                    <div class="text-gray-400 text-center">
+                        <i class="fas fa-ticket-alt text-5xl mb-2"></i>
+                        <div>觀影秘籍NFT</div>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="token-badge">觀影層級</span>
+                        <span class="text-sm text-gray-400">限量50,000枚</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">觀影秘籍NFT</h3>
+                    <p class="text-gray-400 mb-4">
+                        大眾觀影通行證，獲得100分鐘AI電影一次性觀看權，未來續集優先購買權。
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xl font-bold">¥66</span>
+                        <button class="btn-primary px-4 py-2 text-sm view-detail">
+                            查看詳情
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Section -->
+    <section class="py-16" id="technology">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-6">AI原生電影技術</h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    從劇本理解、視覺生成到角色塑造，全流程依靠人工智能技術完成，開創電影製作的全新範式。
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <div class="mb-8">
+                        <h3 class="text-2xl font-bold mb-4">什麼是AI原生電影？</h3>
+                        <p class="text-gray-400">
+                            AI原生電影是指從劇本理解、視覺生成、角色塑造、場景構建、配音配樂到後期製作，全流程主要依靠人工智能技術完成的電影作品。與傳統的「AI輔助電影製作」不同，AI原生電影是以AI為主導、人類為引導的全新電影製作範式。
+                        </p>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="text-blue-400 text-xl mr-4">
+                                <i class="fas fa-paint-brush"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold mb-2">視覺生成技術</h4>
+                                <p class="text-gray-400">
+                                    使用Stable Diffusion XL、Midjourney V6和DALL-E 3生成高質量靜態畫面，並針對明代美學風格訓練專屬模型。
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="text-blue-400 text-xl mr-4">
+                                <i class="fas fa-film"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold mb-2">視頻生成與動畫</h4>
+                                <p class="text-gray-400">
+                                    使用Runway ML Gen-2和Pika Labs實現靜態圖像到動態視頻的轉換，並針對古典服飾和建築開發專有算法。
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="text-blue-400 text-xl mr-4">
+                                <i class="fas fa-microphone-alt"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold mb-2">語音與音頻</h4>
+                                <p class="text-gray-400">
+                                    使用ElevenLabs生成高質量的多語言配音，並合成古典樂器音效，重現明代生活場景的聲景體驗。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="relative">
+                    <div class="bg-gray-800 w-full h-96 rounded-xl flex items-center justify-center">
+                        <div class="text-gray-400 text-center">
+                            <i class="fas fa-brain text-7xl mb-4"></i>
+                            <div class="text-xl">AI技術展示</div>
+                        </div>
+                    </div>
+                    <div class="absolute -bottom-6 -left-6 bg-blue-600 text-white p-4 rounded-xl">
+                        <div class="text-sm">創意無限</div>
+                        <div class="text-xl font-bold">重現明代生活場景</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="card p-6">
+                    <div class="text-blue-400 text-4xl mb-4">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">想像力無限</h3>
+                    <p class="text-gray-400">
+                        傳統電影受限于物理條件、演員檔期等因素，而AI原生電影可以完美還原古代場景，創造理想化的角色形象，實現天馬行空的視覺效果。
+                    </p>
+                </div>
+                
+                <div class="card p-6">
+                    <div class="text-blue-400 text-4xl mb-4">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">成本效率優勢</h3>
+                    <p class="text-gray-400">
+                        無需明星片酬、外景拍攝、大型劇組，製作成本降低90%，製作周期壓縮70%，後期修改靈活高效。
+                    </p>
+                </div>
+                
+                <div class="card p-6">
+                    <div class="text-blue-400 text-4xl mb-4">
+                        <i class="fas fa-language"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">多語言全球化</h3>
+                    <p class="text-gray-400">
+                        一次核心製作，多語言同步輸出，根據不同地區文化特點調整視覺風格，提供個性化觀影體驗。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Collections -->
+    <section class="py-16 bg-gray-900" id="collections">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-6">精選NFT收藏</h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    探索《金瓶梅》宇宙中最具代表性的角色與道具，收藏屬於您的數位文化資產。
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- 西門慶 -->
+                <div class="nft-card card rounded-xl overflow-hidden nft-item" data-id="6">
+                    <div class="relative">
+                        <div class="bg-gray-800 w-full h-60 flex items-center justify-center">
+                            <div class="text-gray-400 text-center">
+                                <i class="fas fa-user-tie text-5xl mb-2"></i>
+                                <div>西門慶</div>
+                            </div>
+                        </div>
+                        <div class="absolute top-3 left-3">
+                            <span class="token-badge">人物星盤</span>
+                        </div>
+                        <div class="nft-card-hover">
+                            <div class="flex justify-between items-center mb-2">
+                                <h3 class="font-bold">西門慶</h3>
+                                <span class="text-sm font-medium">2,000枚</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center">
+                                    <div class="w-6 h-6 rounded-full bg-gray-700 mr-2"></div>
+                                    <span class="text-sm">金瓶梅宇宙</span>
+                                </div>
+                                <button class="btn-primary px-3 py-1 rounded-lg text-xs view-detail">
+                                    查看詳情
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="font-bold">西門慶</h3>
+                            <div class="text-sm font-medium">¥999</div>
+                        </div>
+                        <div class="text-sm text-gray-400">
+                            AI動態肖像技術，權力欲望主題表達，支持PFP頭像使用與個性化互動觀影功能。
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 潘金蓮 -->
+                <div class="nft-card card rounded-xl overflow-hidden nft-item" data-id="7">
+                    <div class="relative">
+                        <div class="bg-gray-800 w-full h-60 flex items-center justify-center">
+                            <div class="text-gray-400 text-center">
+                                <i class="fas fa-female text-5xl mb-2"></i>
+                                <div>潘金蓮</div>
+                            </div>
+                        </div>
+                        <div class="absolute top-3 left-3">
+                            <span class="token-badge">人物星盤</span>
+                        </div>
+                        <div class="nft-card-hover">
+                            <div class="flex justify-between items-center mb-2">
+                                <h3 class="font-bold">潘金蓮</h3>
+                                <span class="text-sm font-medium">2,000枚</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center">
+                                    <div class="w-6 h-6 rounded-full bg-gray-700 mr-2"></div>
+                                    <span class="text-sm">金瓶梅宇宙</span>
+                                </div>
+                                <button class="btn-primary px-3 py-1 rounded-lg text-xs view-detail">
+                                    查看詳情
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="font-bold">潘金蓮</h3>
+                            <div class="text-sm font-medium">¥999</div>
+                        </div>
+                        <div class="text-sm text-gray-400">
+                            反叛精神象徵，女性覺醒代表，本我化身的藝術呈現。
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 大紅遍地金比甲 -->
+                <div class="nft-card card rounded-xl overflow-hidden nft-item" data-id="8">
+                    <div class="relative">
+                        <div class="bg-gray-800 w-full h-60 flex items-center justify-center">
+                            <div class="text-gray-400 text-center">
+                                <i class="fas fa-tshirt text-5xl mb-2"></i>
+                                <div>大紅遍地金比甲</div>
+                            </div>
+                        </div>
+                        <div class="absolute top-3 left-3">
+                            <span class="token-badge">關鍵信物</span>
+                        </div>
+                        <div class="nft-card-hover">
+                            <div class="flex justify-between items-center mb-2">
+                                <h3 class="font-bold">大紅遍地金比甲</h3>
+                                <span class="text-sm font-medium">2,000枚</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center">
+                                    <div class="w-6 h-6 rounded-full bg-gray-700 mr-2"></div>
+                                    <span class="text-sm">金瓶梅宇宙</span>
+                                </div>
+                                <button class="btn-primary px-3 py-1 rounded-lg text-xs view-detail">
+                                    查看詳情
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="font-bold">大紅遍地金比甲</h3>
+                            <div class="text-sm font-medium">¥999</div>
+                        </div>
+                        <div class="text-sm text-gray-400">
+                            3D服裝展示技術，金絲刺繡工藝還原，明代服飾文化的極致體現。
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 胡僧的秘藥 -->
+                <div class="nft-card card rounded-xl overflow-hidden nft-item" data-id="9">
+                    <div class="relative">
+                        <div class="bg-gray-800 w-full h-60 flex items-center justify-center">
+                            <div class="text-gray-400 text-center">
+                                <i class="fas fa-prescription-bottle text-5xl mb-2"></i>
+                                <div>胡僧的秘藥</div>
+                            </div>
+                        </div>
+                        <div class="absolute top-3 left-3">
+                            <span class="token-badge">關鍵信物</span>
+                        </div>
+                        <div class="nft-card-hover">
+                            <div class="flex justify-between items-center mb-2">
+                                <h3 class="font-bold">胡僧的秘藥</h3>
+                                <span class="text-sm font-medium">6,000枚</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center">
+                                    <div class="w-6 h-6 rounded-full bg-gray-700 mr-2"></div>
+                                    <span class="text-sm">金瓶梅宇宙</span>
+                                </div>
+                                <button class="btn-primary px-3 py-1 rounded-lg text-xs view-detail">
+                                    查看詳情
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="font-bold">胡僧的秘藥</h3>
+                            <div class="text-sm font-medium">¥299</div>
+                        </div>
+                        <div class="text-sm text-gray-400">
+                            神秘發光脈動效果，藏醫藥瓶細節還原，警世寓意的藝術表達。
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#nft" class="btn-primary px-8 py-3 rounded-full font-medium">
+                    瀏覽全部NFT收藏
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- NFT Detail Modal -->
+    <div id="nft-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="nft-detail-container">
+                <div class="nft-detail-image">
+                    <div class="bg-gray-800 w-full h-full flex items-center justify-center">
+                        <div class="text-gray-400 text-center p-8">
+                            <i class="fas fa-crown text-7xl mb-4"></i>
+                            <div class="text-2xl" id="modal-title">金蓮NFT</div>
+                            <div class="mt-4" id="modal-type">創始贊助人層級</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="nft-detail-info">
+                    <h2 class="text-3xl font-bold mb-4" id="modal-name">金蓮NFT</h2>
+                    <div class="flex items-center mb-6">
+                        <span class="token-badge" id="modal-category">頂級收藏</span>
+                        <span class="ml-4 text-gray-400" id="modal-count">限量: 500枚</span>
+                    </div>
+                    
+                    <div class="mb-8">
+                        <h3 class="text-xl font-bold mb-3">作品描述</h3>
+                        <p class="text-gray-400" id="modal-description">
+                            動態生成的30-60秒視頻藝術品，融合明代美學與現代數字藝術，每個金蓮NFT都是獨一無二的算法生成藝術品，無重複。
+                        </p>
+                    </div>
+                    
+                    <div class="mb-8">
+                        <h3 class="text-xl font-bold mb-3">特色權益</h3>
+                        <ul class="space-y-2 text-gray-400">
+                            <li class="flex items-start">
+                                <i class="fas fa-vote-yea text-blue-400 mt-1 mr-2"></i>
+                                <span>DAO核心投票權：參與項目重大決策，包括續集製作、IP授權等</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-film text-blue-400 mt-1 mr-2"></i>
+                                <span>電影署名權：在電影片頭獲得「創始贊助人」署名</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-users text-blue-400 mt-1 mr-2"></i>
+                                <span>主創交流權：定期參與主創團隊私人交流會</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-tv text-blue-400 mt-1 mr-2"></i>
+                                <span>專屬虛擬包廂觀影體驗，支持最多10人同時觀看</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="flex justify-between items-center mb-6">
+                        <div>
+                            <div class="text-gray-400 text-sm">當前價格</div>
+                            <div class="text-2xl font-bold" id="modal-price">¥9,999</div>
+                        </div>
+                        <button class="btn-primary px-6 py-3 rounded-lg font-medium">
+                            立即收藏
+                        </button>
+                    </div>
+                    
+                    <div class="border-t border-gray-700 pt-4">
+                        <div class="text-gray-400 text-sm">區塊鏈</div>
+                        <div class="flex items-center">
+                            <i class="fab fa-ethereum text-gray-400 mr-2"></i>
+                            <span>以太坊主網 (ERC-721)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Community Section -->
+    <section class="py-16" id="community">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-6">加入金瓶梅AI宇宙社群</h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    與全球古典文學愛好者、AI技術探索者和文化傳承者一起，共同見證600年文學經典的數位新生。
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <div class="card p-8 mb-8">
+                        <h3 class="text-2xl font-bold mb-4">獨特互動體驗</h3>
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <div class="text-blue-400 mr-3 mt-1">
+                                    <i class="fas fa-comments"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium">AI角色對話系統</h4>
+                                    <p class="text-sm text-gray-400">
+                                        持有「人物星盤NFT」的用戶，可與基於大語言模型訓練的、擁有完整人設和記憶的角色AI進行深度對話。
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="text-blue-400 mr-3 mt-1">
+                                    <i class="fas fa-vr-cardboard"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium">角色視角觀影</h4>
+                                    <p class="text-sm text-gray-400">
+                                        持有者可選擇以該角色視角體驗電影，AI將生成專屬的內心獨白，提供沉浸式敘事體驗。
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="text-blue-400 mr-3 mt-1">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium">角色社群准入</h4>
+                                    <p class="text-sm text-gray-400">
+                                        加入對應角色的專屬粉絲社群，與同好交流角色解讀與文化探討。
+                                    </p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="flex space-x-6 justify-center">
+                        <a href="#" class="text-3xl text-gray-400 hover:text-blue-400 transition">
+                            <i class="fab fa-discord"></i>
+                        </a>
+                        <a href="#" class="text-3xl text-gray-400 hover:text-blue-400 transition">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                        <a href="#" class="text-3xl text-gray-400 hover:text-blue-400 transition">
+                            <i class="fab fa-weibo"></i>
+                        </a>
+                        <a href="#" class="text-3xl text-gray-400 hover:text-blue-400 transition">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="card p-6">
+                        <div class="text-blue-400 text-4xl mb-4">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">教育與文化傳承</h3>
+                        <p class="text-gray-400">
+                            與全球孔子學院和大學合作，將NFT作為學習中華文化和語言的沉浸式教具。
+                        </p>
+                    </div>
+                    
+                    <div class="card p-6">
+                        <div class="text-blue-400 text-4xl mb-4">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">元宇宙整合</h3>
+                        <p class="text-gray-400">
+                            構建持續擴展的「明代虛擬世界」，NFT持有者可在其中擁有虛擬身份、道具和財產。
+                        </p>
+                    </div>
+                    
+                    <div class="card p-6">
+                        <div class="text-blue-400 text-4xl mb-4">
+                            <i class="fas fa-theater-masks"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">虛擬文化體驗</h3>
+                        <p class="text-gray-400">
+                            在元宇宙中參與明代生活場景重現，與AI角色互動，體驗《金瓶梅》筆下的明代社會。
+                        </p>
+                    </div>
+                    
+                    <div class="card p-6">
+                        <div class="text-blue-400 text-4xl mb-4">
+                            <i class="fas fa-paint-brush"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">創作工坊</h3>
+                        <p class="text-gray-400">
+                            參與AI創作工作坊，學習如何用現代技術重新詮釋古典文學。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="py-16 bg-gradient-to-r from-blue-900 to-purple-900">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">加入AI電影革命</h2>
+                <p class="text-xl text-gray-200 mb-8">
+                    訂閱我們的通訊，獲取獨家NFT發售資訊、收藏品搶先體驗，以及AI生成電影資產的前沿洞察。
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto">
+                    <input type="email" placeholder="輸入您的電子郵件" class="bg-white bg-opacity-10 border border-gray-700 text-white rounded-full px-6 py-3 w-full focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    <button class="btn-primary px-8 py-3 rounded-full font-medium">
+                        訂閱
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <a href="#" class="hkaifm-logo mb-4">
+                        <div class="logo-font">金瓶梅AI電影</div>
+                        <div class="logo-sub">數位文化宇宙</div>
+                    </a>
+                    <p class="text-gray-400 mb-4">
+                        透過AI與區塊鏈技術，重塑600年古典文學經典。
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-telegram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-discord"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-weibo"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">平台</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#about" class="text-gray-400 hover:text-blue-400">關於項目</a></li>
+                        <li><a href="#nft" class="text-gray-400 hover:text-blue-400">NFT系列</a></li>
+                        <li><a href="#technology" class="text-gray-400 hover:text-blue-400">AI技術</a></li>
+                        <li><a href="#collections" class="text-gray-400 hover:text-blue-400">精選收藏</a></li>
+                        <li><a href="#community" class="text-gray-400 hover:text-blue-400">社群</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">資源</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-blue-400">項目白皮書</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-blue-400">使用指南</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-blue-400">常見問題</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-blue-400">技術支援</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">法律聲明</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-blue-400">服務條款</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-blue-400">隱私政策</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-blue-400">版權聲明</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-blue-400">聯絡我們</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500 text-sm">
+                <p>© 2025 《金瓶梅》AI原生電影項目。保留所有權利。</p>
+                <p class="mt-2">本網站展示的NFT為數位收藏品，不構成任何形式的投資建議。</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Add random data streams
+        function createDataStreams() {
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    const stream = document.createElement('div');
+                    stream.className = 'data-stream';
+                    stream.style.left = Math.random() * 100 + '%';
+                    stream.style.animationDelay = Math.random() * 2 + 's';
+                    document.body.appendChild(stream);
+                    
+                    // Remove after animation
+                    setTimeout(() => {
+                        stream.remove();
+                    }, 4000);
+                }, i * 3000);
+            }
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Start data streams
+            createDataStreams();
+            setInterval(createDataStreams, 15000);
+            
+            // Add scroll animations
+            const animatedElements = document.querySelectorAll('.animate-fade-in, .animate-slide-up, .animate-slide-right');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        if (entry.target.classList.contains('animate-slide-up')) {
+                            entry.target.style.transform = 'translateY(0)';
+                        }
+                        if (entry.target.classList.contains('animate-slide-right')) {
+                            entry.target.style.transform = 'translateX(0)';
+                        }
+                        if (entry.target.classList.contains('animate-fade-in')) {
+                            entry.target.style.transform = 'scale(1)';
+                        }
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            animatedElements.forEach(el => {
+                el.style.opacity = '0';
+                if (el.classList.contains('animate-slide-up')) {
+                    el.style.transform = 'translateY(50px)';
+                }
+                if (el.classList.contains('animate-slide-right')) {
+                    el.style.transform = 'translateX(-50px)';
+                }
+                if (el.classList.contains('animate-fade-in')) {
+                    el.style.transform = 'scale(0.95)';
+                }
+                observer.observe(el);
+            });
+            
+            // Mobile menu functionality
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const mobileMenuClose = document.querySelector('.mobile-menu-close');
+            
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            });
+            
+            mobileMenuClose.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+                document.body.style.overflow = 'auto';
+            });
+            
+            // Mobile login buttons
+            document.getElementById('mobile-login-btn').addEventListener('click', () => {
+                alert('登入功能啟動中...');
+            });
+            
+            document.getElementById('mobile-wallet-btn').addEventListener('click', () => {
+                alert('連接錢包功能啟動中...');
+            });
+            
+            // NFT detail modal functionality
+            const modal = document.getElementById('nft-modal');
+            const closeBtn = document.querySelector('.close-modal');
+            const viewDetailBtns = document.querySelectorAll('.view-detail');
+            
+            // NFT data
+            const nftData = {
+                1: {
+                    name: "金蓮NFT",
+                    type: "創始贊助人層級",
+                    category: "頂級收藏",
+                    count: "限量500枚",
+                    price: "¥9,999",
+                    description: "動態生成的30-60秒視頻藝術品，融合明代美學與現代數字藝術，每個金蓮NFT都是獨一無二的算法生成藝術品，無重複。",
+                    details: `<ul class="space-y-2 text-gray-400">
+                        <li class="flex items-start">
+                            <i class="fas fa-vote-yea text-blue-400 mt-1 mr-2"></i>
+                            <span>DAO核心投票權：參與項目重大決策，包括續集製作、IP授權等</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-film text-blue-400 mt-1 mr-2"></i>
+                            <span>電影署名權：在電影片頭獲得「創始贊助人」署名</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-users text-blue-400 mt-1 mr-2"></i>
+                            <span>主創交流權：定期參與主創團隊私人交流會</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-tv text-blue-400 mt-1 mr-2"></i>
+                            <span>專屬虛擬包廂觀影體驗，支持最多10人同時觀看</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-paint-brush text-blue-400 mt-1 mr-2"></i>
+                            <span>個性化定制：可要求AI生成個人專屬的《金瓶梅》角色形象</span>
+                        </li>
+                    </ul>`
+                },
+                2: {
+                    name: "關鍵信物NFT",
+                    type: "道具系列",
+                    category: "互動道具",
+                    count: "限量40,000枚",
+                    price: "¥199-999",
+                    description: "包含命運之簾、王婆的銀線、大紅遍地金比甲、胡僧的秘藥、武松的吳鉤、普靜的木魚等經典道具，每件信物都有獨特的互動功能。",
+                    details: `<div class="mb-4">
+                        <h4 class="font-bold mb-2">系列設計：</h4>
+                        <ul class="space-y-3 text-gray-400">
+                            <li>
+                                <span class="font-medium">命運之簾 (¥199)：</span> 3D互動場景，360度觀察體驗，銀遮NFT合成必備材料
+                            </li>
+                            <li>
+                                <span class="font-medium">王婆的銀線 (¥199)：</span> 高保真3D物品動畫，古代銀鏈物理模擬效果
+                            </li>
+                            <li>
+                                <span class="font-medium">大紅遍地金比甲 (¥999)：</span> 3D服裝展示技術，金絲刺繡工藝還原
+                            </li>
+                            <li>
+                                <span class="font-medium">胡僧的秘藥 (¥299)：</span> 神秘發光脈動效果，藏醫藥瓶細節還原
+                            </li>
+                            <li>
+                                <span class="font-medium">武松的吳鉤 (¥299)：</span> 寒光閃爍特效技術，正義復仇主題
+                            </li>
+                            <li>
+                                <span class="font-medium">普靜的木魚 (¥299)：</span> 空靈音效回響設計，禪意佛教場景營造
+                            </li>
+                        </ul>
+                    </div>`
+                },
+                3: {
+                    name: "人物星盤NFT",
+                    type: "角色系列",
+                    category: "角色收藏",
+                    count: "限量48,000枚",
+                    price: "¥199-999",
+                    description: "收藏西門慶、潘金蓮、李瓶兒、春梅、秋菊等經典角色，每個角色都有獨特的AI人格，持有者可與角色進行深度對話。",
+                    details: `<div class="mb-4">
+                        <h4 class="font-bold mb-2">核心角色：</h4>
+                        <ul class="space-y-3 text-gray-400">
+                            <li>
+                                <span class="font-medium">西門慶 (¥999)：</span> AI動態肖像技術，權力欲望主題表達
+                            </li>
+                            <li>
+                                <span class="font-medium">潘金蓮 (¥999)：</span> 反叛精神象徵，女性覺醒代表
+                            </li>
+                            <li>
+                                <span class="font-medium">李瓶兒 (¥299)：</span> 悲劇美學代表，命運無常象徵
+                            </li>
+                            <li>
+                                <span class="font-medium">春梅、秋菊等配角 (¥199-499)：</span> 豐富的人物譜系，社會百態的全面展現
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold mb-2">創新功能：</h4>
+                        <ul class="space-y-2 text-gray-400">
+                            <li class="flex items-start">
+                                <i class="fas fa-film text-blue-400 mt-1 mr-2"></i>
+                                <span>實時互動觀影：持有者可選擇以該角色視角觀影</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-comments text-blue-400 mt-1 mr-2"></i>
+                                <span>角色社群准入：獲得對應角色主題討論區權限</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-magic text-blue-400 mt-1 mr-2"></i>
+                                <span>個性化劇情：AI根據角色特點生成專屬劇情片段</span>
+                            </li>
+                        </ul>
+                    </div>`
+                },
+                4: {
+                    name: "銀遮NFT",
+                    type: "合成系列",
+                    category: "獨特場景",
+                    count: "限量8,000-12,000枚",
+                    price: "合成獲得",
+                    description: "由關鍵信物NFT與人物星盤NFT合成，每個銀遮NFT都是獨一無二的15-30秒AI電影短片，展現《金瓶梅》中的經典場景。",
+                    details: `<ul class="space-y-2 text-gray-400">
+                        <li class="flex items-start">
+                            <i class="fas fa-cube text-blue-400 mt-1 mr-2"></i>
+                            <span>唯一性：每個銀遮NFT都是獨一無二的15-30秒AI電影短片</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-paint-brush text-blue-400 mt-1 mr-2"></i>
+                            <span>藝術價值：AI生成的詩意電影瞬間，極具收藏價值</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-user-plus text-blue-400 mt-1 mr-2"></i>
+                            <span>升級權益：比原NFT獲得更高級別的社群權限和觀影體驗</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-lock text-blue-400 mt-1 mr-2"></i>
+                            <span>通縮機制：合成過程中原NFT被永久鎖定，減少市場供應</span>
+                        </li>
+                    </ul>`
+                },
+                5: {
+                    name: "觀影秘籍NFT",
+                    type: "觀影層級",
+                    category: "觀影通行證",
+                    count: "限量50,000枚",
+                    price: "¥66",
+                    description: "大眾觀影通行證，獲得100分鐘AI電影一次性觀看權，未來續集優先購買權。",
+                    details: `<ul class="space-y-2 text-gray-400">
+                        <li class="flex items-start">
+                            <i class="fas fa-ticket-alt text-blue-400 mt-1 mr-2"></i>
+                            <span>100分鐘AI電影一次性觀看權，消耗型，使用即消耗</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fab fa-discord text-blue-400 mt-1 mr-2"></i>
+                            <span>Discord社群准入權</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-vote-yea text-blue-400 mt-1 mr-2"></i>
+                            <span>基礎投票權（非核心決策）</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-fast-forward text-blue-400 mt-1 mr-2"></i>
+                            <span>未來續集優先購買權</span>
+                        </li>
+                    </ul>`
+                },
+                6: {
+                    name: "西門慶",
+                    type: "人物星盤系列",
+                    category: "角色收藏",
+                    count: "限量2,000枚",
+                    price: "¥999",
+                    description: "西門慶是《金瓶梅》中的核心角色，富商形象代表。此NFT呈現其權力欲望與複雜人性，展現明代商業社會的眾生相。",
+                    details: `<ul class="space-y-2 text-gray-400">
+                        <li class="flex items-start">
+                            <i class="fas fa-portrait text-blue-400 mt-1 mr-2"></i>
+                            <span>AI動態肖像技術，完美還原文學描述的理想化角色</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-comments text-blue-400 mt-1 mr-2"></i>
+                            <span>與AI西門慶進行深度對話，探索角色內心世界</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-film text-blue-400 mt-1 mr-2"></i>
+                            <span>以西門慶視角觀看電影，體驗專屬內心獨白</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-users text-blue-400 mt-1 mr-2"></i>
+                            <span>加入西門慶主題社群，參與角色解讀與文化探討</span>
+                        </li>
+                    </ul>`
+                },
+                7: {
+                    name: "潘金蓮",
+                    type: "人物星盤系列",
+                    category: "角色收藏",
+                    count: "限量2,000枚",
+                    price: "¥999",
+                    description: "潘金蓮是《金瓶梅》中最具爭議性的女性角色，反叛精神的象徵。此NFT呈現其複雜的性格特徵與時代背景下的女性處境。",
+                    details: `<ul class="space-y-2 text-gray-400">
+                        <li class="flex items-start">
+                            <i class="fas fa-female text-blue-400 mt-1 mr-2"></i>
+                            <span>女性覺醒代表，本我化身的藝術呈現</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-comments text-blue-400 mt-1 mr-2"></i>
+                            <span>與AI潘金蓮進行深度對話，探索角色內心世界</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-film text-blue-400 mt-1 mr-2"></i>
+                            <span>以潘金蓮視角觀看電影，體驗專屬劇情分支</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-users text-blue-400 mt-1 mr-2"></i>
+                            <span>加入潘金蓮主題社群，參與女性角色文化探討</span>
+                        </li>
+                    </ul>`
+                },
+                8: {
+                    name: "大紅遍地金比甲",
+                    type: "關鍵信物系列",
+                    category: "服飾道具",
+                    count: "限量2,000枚",
+                    price: "¥999",
+                    description: "明代服飾文化的極致體現，精美刺繡工藝的華麗服飾，展現明代上層社會的奢華生活。",
+                    details: `<ul class="space-y-2 text-gray-400">
+                        <li class="flex items-start">
+                            <i class="fas fa-tshirt text-blue-400 mt-1 mr-2"></i>
+                            <span>3D服裝展示技術，360度全方位觀賞</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-paint-brush text-blue-400 mt-1 mr-2"></i>
+                            <span>金絲刺繡工藝高清還原，展現明代服飾藝術</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-history text-blue-400 mt-1 mr-2"></i>
+                            <span>明代服飾文化的歷史考證與數字化重現</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-cube text-blue-400 mt-1 mr-2"></i>
+                            <span>銀遮NFT合成的重要材料之一</span>
+                        </li>
+                    </ul>`
+                },
+                9: {
+                    name: "胡僧的秘藥",
+                    type: "關鍵信物系列",
+                    category: "神秘道具",
+                    count: "限量6,000枚",
+                    price: "¥299",
+                    description: "源自《金瓶梅》中的神秘道具，具有警世寓意，展現明代社會的荒誕與人性弱點。",
+                    details: `<ul class="space-y-2 text-gray-400">
+                        <li class="flex items-start">
+                            <i class="fas fa-prescription-bottle text-blue-400 mt-1 mr-2"></i>
+                            <span>神秘發光脈動效果，增強視覺體驗</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-vial text-blue-400 mt-1 mr-2"></i>
+                            <span>藏醫藥瓶細節精準還原，歷史考證嚴謹</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-exclamation-triangle text-blue-400 mt-1 mr-2"></i>
+                            <span>警世寓意的藝術表達，引發哲學思考</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-cube text-blue-400 mt-1 mr-2"></i>
+                            <span>銀遮NFT合成的重要材料之一</span>
+                        </li>
+                    </ul>`
+                }
+            };
+            
+            // Open modal
+            viewDetailBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const nftItem = btn.closest('.nft-item');
+                    const nftId = nftItem.getAttribute('data-id');
+                    const nft = nftData[nftId];
+                    
+                    // Populate modal data
+                    document.getElementById('modal-title').textContent = nft.name;
+                    document.getElementById('modal-name').textContent = nft.name;
+                    document.getElementById('modal-type').textContent = nft.type;
+                    document.getElementById('modal-category').textContent = nft.category;
+                    document.getElementById('modal-count').textContent = `限量: ${nft.count}`;
+                    document.getElementById('modal-price').textContent = nft.price;
+                    document.getElementById('modal-description').textContent = nft.description;
+                    
+                    // Add details if available
+                    const detailsContainer = document.createElement('div');
+                    detailsContainer.innerHTML = nft.details || '';
+                    const existingDetails = document.querySelector('#nft-detail-info .details-container');
+                    if (existingDetails) existingDetails.remove();
+                    
+                    const description = document.getElementById('modal-description');
+                    description.insertAdjacentElement('afterend', detailsContainer);
+                    detailsContainer.classList.add('details-container');
+                    
+                    // Show modal
+                    modal.style.display = 'block';
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+            
+            // Close modal
+            closeBtn.addEventListener('click', () => {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+            
+            // Close modal when clicking outside
+            window.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+            
+            // Login option handlers
+            const loginOptions = document.querySelectorAll('.login-option');
+            
+            loginOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    const loginType = option.getAttribute('data-login');
+                    
+                    if (loginType === 'metamask' || loginType === 'walletconnect') {
+                        alert(`連接${loginType.charAt(0).toUpperCase() + loginType.slice(1)}錢包...`);
+                    } else {
+                        alert(`使用${loginType.charAt(0).toUpperCase() + loginType.slice(1)}登入...`);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
